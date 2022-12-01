@@ -1,0 +1,87 @@
+<div class="container">
+    <form [formGroup]="mortgageForm" (ngSubmit)="calculateMortgageAmt()">
+        <div class="row">
+            <div class="col-md-12">
+                <section class="mortgageSection">
+                    <header class="mortgageSectionHeading">
+                        <h3 class="title">Payment Plan</h3>
+                    </header>
+                    <div class="mortgageSectionBody">
+                    <div class="row form-group">
+                        <div class="col-md-5">
+                            <label>Mortgage Amount:</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="number" formControlName="mortgageAmt" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-5">
+                            <label>Interest Rate:</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <input type="number" formControlName="interestRate" class="form-control">
+                                <span class="input-group-addon input-group-addon-rate">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-5">
+                            <label>Amortization Period:</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <input type="number" formControlName="amortizationPeriod" class="form-control">
+                                <span class="input-group-addon">Years</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-5">
+                            <label>Payment Frequency:</label>
+                        </div>
+                        <div class="col-md-7">
+                            <select (change)="changePaymentFrequency($event)"
+                            formControlName="paymentFrequency" class="form-control">
+                                <option *ngFor="let frequency of paymentFrequencyList" [ngValue]="frequency">
+                                    {{ frequency }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-5">
+                            <label>Term:</label>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="input-group">
+                                <input type="number" formControlName="term" class="form-control">
+                                <span class="input-group-addon">Years</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </section>
+                <button type="submit" class="btn btn-primary">Calculate..</button>
+            </div>
+        </div>
+
+        <h5>Calculation Summary</h5>
+        <table class="summary">
+            <tr>
+                <th>Category</th>
+                <th>Term</th>
+                <th>Amortization Period</th>
+            </tr>
+            <tr *ngFor="let data of calSummary">
+                <td>{{data?.category}}</td>
+                <td>{{data?.term}}</td>
+                <td>{{data?.amortPeriod}}</td>
+            </tr>
+        </table>
+    </form>
+</div>

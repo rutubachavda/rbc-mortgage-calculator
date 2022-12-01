@@ -1,0 +1,112 @@
+.summary {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .summary td, .summary th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .summary tr:nth-child(even){background-color: #f2f2f2;}
+  
+  .summary tr:hover {background-color: #ddd;}
+  
+  .summary th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    color: #fff;
+    background-color: #2572b4;
+    border-color: #2572b4;
+  }
+
+h5 {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.container {
+    margin: 30px 0;
+}
+
+.mortgageSection {
+    border-color: #2572b4;
+    background-color: #fff;
+    border: 1px solid;
+    border-radius: 4px;
+
+    .mortgageSectionHeading {
+        padding: 10px 15px;
+        border-bottom: 1px solid transparent;
+        color: #fff;
+        background-color: #2572b4;
+        border-color: #2572b4;
+
+        .title {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 18px;
+        }
+    }
+
+    .mortgageSectionBody {
+        padding: 15px;
+        display: table;
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 700;
+    }
+
+    .input-group {
+        display: table;
+        width: 100%;
+        position: relative;
+
+        .input-group-addon {
+            padding: 10px 14px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1;
+            color: #555;
+            text-align: center;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 1%;
+            white-space: nowrap;
+            vertical-align: middle; 
+            display: table-cell;
+        }
+    }
+
+   
+
+    .input-group-addon:first-child {
+        border-right: 0;
+    }
+
+    
+
+    .form-control {
+        display: table-cell;
+        position: relative;
+        z-index: 2;
+        float: left;
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    
+    
+}
+
+.btn-primary {
+    background-color: #335075;
+    border-color: #335075;
+    margin: 30px 0;
+}
