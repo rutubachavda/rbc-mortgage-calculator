@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface Summary {
   category: string,
@@ -15,52 +15,50 @@ interface Summary {
 export class AppComponent {
   calSummary: Summary[] = [];
   paymentFrequencyList = ['Monthly', 'Semi-monthly', 'Bi-weekly', 'Weekly', 'Accelerated Bi-weekly', 'Accelerated Weekly']
-  
-  constructor(private fb: FormBuilder) {}
-  mortgageForm = this.fb.group({
-    mortgageAmt: [],
-    interestRate: [],
-    amortizationPeriod: [],
-    paymentFrequency: ['Monthly'],
-    term: []
-  });
+  mortgageForm: FormGroup;
 
-  changePaymentFrequency(event: any) {
-    console.log(event);
+  constructor(private fb: FormBuilder) {
+    this.mortgageForm = this.fb.group({
+      mortgageAmt: [],
+      interestRate: [],
+      amortizationPeriod: [],
+      paymentFrequency: ['Monthly'],
+      term: []
+    });
   }
 
   calculateMortgageAmt() {
     this.calSummary = [];
-    if(this.mortgageForm?.value?.term && this.mortgageForm.value.amortizationPeriod && this.mortgageForm.value.mortgageAmt) {
+    if(this.mortgageForm?.value) {
       let rate = 0, amortizationMonths = 0, termMonths = 0;
       switch(this.mortgageForm.value.paymentFrequency) {
         case 'Monthly':
-          rate = Math.pow((Number(this.mortgageForm.value.interestRate)/100)/2 + 1, 1/6) - 1;
-          amortizationMonths = Number(this.mortgageForm.value.amortizationPeriod) * 12;
-          termMonths = Number(this.mortgageForm.value.term) * 12;
+          rate = Math.pow((this.mortgageForm.value.interestRate/100)/2 + 1, 1/6) - 1;
+          amortizationMonths = this.mortgageForm.value.amortizationPeriod * 12;
+          termMonths = this.mortgageForm.value.term * 12;
           break;
         
         case 'Semi-monthly':
-          rate = Math.pow((Number(this.mortgageForm.value.interestRate)/100)/2 + 1, 1/12) - 1;
-          amortizationMonths = Number(this.mortgageForm.value.amortizationPeriod) * 12 * 2;
-          termMonths = Number(this.mortgageForm.value.term) * 12 * 2;
+          rate = Math.pow((this.mortgageForm.value.interestRate/100)/2 + 1, 1/12) - 1;
+          amortizationMonths = this.mortgageForm.value.amortizationPeriod * 12 * 2;
+          termMonths = this.mortgageForm.value.term * 12 * 2;
           break;
         
         case 'Bi-weekly':
-          rate = Math.pow((Number(this.mortgageForm.value.interestRate)/100)/2 + 1, 2/26) - 1;
+          rate = Math.pow((this.mortgageForm.value.interestRate/100)/2 + 1, 2/26) - 1;
           amortizationMonths = Math.round((365/7)/2) * this.mortgageForm.value.amortizationPeriod;
           termMonths = Math.round((365/7)/2) * this.mortgageForm.value.term;
           break;
 
         case 'Weekly':
-          rate = Math.pow((Number(this.mortgageForm.value.interestRate)/100)/2 + 1, 2/52) - 1;
+          rate = Math.pow((this.mortgageForm.value.interestRate)/100/2 + 1, 2/52) - 1;
           amortizationMonths = Math.round(365/7) * this.mortgageForm.value.amortizationPeriod;
           termMonths = Math.round(365/7) * this.mortgageForm.value.term;
           break;
       }
       let rateWithExpo = Math.pow(1+rate, amortizationMonths);
-      let mortgageMonthlyPayment = (Number(this.mortgageForm.value.mortgageAmt) * ((rate * rateWithExpo)/(rateWithExpo - 1)))
-      let beginningBalance = Number(this.mortgageForm.value.mortgageAmt);
+      let mortgageMonthlyPayment = (this.mortgageForm.value.mortgageAmt * ((rate * rateWithExpo)/(rateWithExpo - 1)))
+      let beginningBalance = this.mortgageForm.value.mortgageAmt;
       let principlePayment = 0, interestPayment = 0, endingBalance = 0;
       let termInterestPayment = 0, termPrinciplePayment = 0, totalInterestPayment = 0, totalPrinciplePayment = 0;
 
@@ -72,7 +70,8 @@ export class AppComponent {
 
         totalInterestPayment += interestPayment;
         totalPrinciplePayment += principlePayment;
-        if(i==(termMonths)) {
+
+        if(i==termMonths) {
           termInterestPayment = totalInterestPayment;
           termPrinciplePayment = totalPrinciplePayment;
         }

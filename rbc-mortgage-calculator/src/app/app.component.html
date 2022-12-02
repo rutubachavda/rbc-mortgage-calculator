@@ -45,8 +45,7 @@
                             <label>Payment Frequency:</label>
                         </div>
                         <div class="col-md-7">
-                            <select (change)="changePaymentFrequency($event)"
-                            formControlName="paymentFrequency" class="form-control">
+                            <select formControlName="paymentFrequency" class="form-control">
                                 <option *ngFor="let frequency of paymentFrequencyList" [ngValue]="frequency">
                                     {{ frequency }}
                                 </option>
@@ -66,7 +65,7 @@
                     </div>
                 </div>
                 </section>
-                <button type="submit" class="btn btn-primary">Calculate..</button>
+                <button type="submit" class="btn btn-primary">Calculate</button>
             </div>
         </div>
 
