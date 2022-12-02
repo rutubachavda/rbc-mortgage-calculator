@@ -60,7 +60,7 @@ describe('AppComponent', () => {
     });
     component.calculateMortgageAmt();
 
-    expect(component.calSummary[1].amortPeriod).toEqual('581.60');
+    expect(component.calSummary[1].amortPeriod).toEqual('$581.60');
   });
 
   it('should calculate semi-monthly mortgage amout', () => {
@@ -73,7 +73,7 @@ describe('AppComponent', () => {
     });
     component.calculateMortgageAmt();
 
-    expect(component.calSummary[1].amortPeriod).toEqual('290.50');
+    expect(component.calSummary[1].amortPeriod).toEqual('$290.50');
   });
 
   it('should calculate Bi-weekly mortgage amout', () => {
@@ -86,7 +86,7 @@ describe('AppComponent', () => {
     });
     component.calculateMortgageAmt();
 
-    expect(component.calSummary[1].amortPeriod).toEqual('268.14');
+    expect(component.calSummary[1].amortPeriod).toEqual('$268.14');
   });
 
   it('should calculate weekly mortgage amout', () => {
@@ -99,6 +99,6 @@ describe('AppComponent', () => {
     });
     component.calculateMortgageAmt();
 
-    expect(component.calSummary[1].amortPeriod).toEqual('134.00');
+    expect(component.calSummary[1].amortPeriod).toEqual('$134.00');
   });
 });

@@ -14,7 +14,7 @@ interface Summary {
 })
 export class AppComponent {
   calSummary: Summary[] = [];
-  paymentFrequencyList = ['Monthly', 'Semi-monthly', 'Bi-weekly', 'Weekly', 'Accelerated Bi-weekly', 'Accelerated Weekly']
+  paymentFrequencyList = ['Monthly', 'Semi-monthly', 'Bi-weekly', 'Weekly']
   mortgageForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -84,28 +84,23 @@ export class AppComponent {
       }, 
       {
         category: 'Mortgage Payment',
-        term: mortgageMonthlyPayment.toFixed(2),
-        amortPeriod: mortgageMonthlyPayment.toFixed(2)
-      },
-      {
-        category: 'Prepayment',
-        term: '0',
-        amortPeriod: '0'
+        term: '$' + mortgageMonthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        amortPeriod: '$' + mortgageMonthlyPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
       },
       {
         category: 'Principal Payments',
-        term: termPrinciplePayment.toFixed(2),
-        amortPeriod: totalPrinciplePayment.toFixed(2)
+        term: '$' + termPrinciplePayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        amortPeriod: '$' + totalPrinciplePayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
       },
       {
         category: 'Interest Payments',
-        term: termInterestPayment.toFixed(2),
-        amortPeriod: totalInterestPayment.toFixed(2)
+        term: '$' + termInterestPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        amortPeriod: '$' + totalInterestPayment.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
       },
       {
         category: 'Total Cost',
-        term: (termPrinciplePayment + termInterestPayment).toFixed(2),
-        amortPeriod: (totalPrinciplePayment + totalInterestPayment).toFixed(2)
+        term: '$' + (termPrinciplePayment + termInterestPayment).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        amortPeriod: '$' + (totalPrinciplePayment + totalInterestPayment).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
       })
     }
   }  
